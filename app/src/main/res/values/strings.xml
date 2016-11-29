@@ -46,6 +46,9 @@
     <string name="titre_versement">Versement mensuel (en $)</string>
     <string name="titre_interet_total">Intérêt total (en $)</string>
     <string name="titre_pret_total">Prêt total (en $)</string>
+    <string name="titre_nom_dino">Dinosaurs :</string>
+    <string name="titre_menu_search">Recherche en ligne</string>
+    <string name="titre_menu_annuler">Annuler</string>
 
     <string name="txt_btn_calculer">Calculer</string>
     <string name="txt_btn_effacer">Effacer</string>
