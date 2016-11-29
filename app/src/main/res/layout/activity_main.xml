@@ -5,13 +5,29 @@
     android:layout_height="match_parent">
 
     <!--Mettre ici votre layout.-->
-    <TextView
-        android:id="@+id/id_titre_sexe"
-
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="50"
-        android:text="Application" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+        <TextView
+            android:id="@+id/id_titre_accueil_activites"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accueil_activites"
+            />
+        <ImageView
+            android:src="@drawable/ic_accueil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/accueil_activites"
+            android:layout_marginTop="150dp"
+            android:scaleX="5"
+            android:scaleY="5"/>
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/list_navigation"
