@@ -4,17 +4,17 @@
     tools:context=".MainActivity">
 
     <!--À COMPLÉTER. Voir page 8 de l'énoncé du TP3.-->
-    <item>
+    <item
         android:id="@+id/menu_accueil"
         android:icon="@drawable/ic_accueil"
         android:title="@string/action_accueil"
         app:showAsAction="always|withText"
-    </item>
-    <item>
+    />
+    <item
         android:id="@+id/menu_aide"
-        android:icon="@drawable/ic_action_aide,"
+        android:icon="@drawable/ic_action_aide"
         android:title="@string/action_aide"
         app:showAsAction="always|withText"
-    </item>
+    />
 
 </menu>
