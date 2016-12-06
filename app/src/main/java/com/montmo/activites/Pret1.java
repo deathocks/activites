@@ -2,28 +2,51 @@ package com.montmo.activites;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by Julien on 2016-12-06.
+ */
+public class Pret1 extends AppCompatActivity {
+    private EditText textMontant, textInteret;
+    private Spinner listeMois;
+    private Button boutonCalcul, boutonEffacer;
+    private Pret pret;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pret);
 
         menuDrawerLayour();
 
+        RecupererComposant();
 
+        pret = new Pret();
+
+    }
+
+    public void RecupererComposant() {
+        textMontant = (EditText) findViewById(R.id.edit_montant);
+        textInteret = (EditText) findViewById(R.id.edit_interet);
+
+        listeMois = (Spinner) findViewById(R.id.liste_mois);
+
+        boutonCalcul = (Button) findViewById(R.id.txt_btn_calculer);
+        boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
     }
 
     @Override
@@ -56,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         //Récuperer une référence à la bare avec Appcompat
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
+
+        actionBar.setSubtitle(R.string.titre_pret);
         //Ajouter la flèche de remonté et la rendre cliquable
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -81,17 +106,16 @@ public class MainActivity extends AppCompatActivity {
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
                     Intent intent = new Intent();
-                    if(position == 0){
-                        intent = new Intent(MainActivity.this, Pret1.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    if (position == 0) {
+                        intent = new Intent(Pret1.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {
-                        intent = new Intent(MainActivity.this, Conifere1.class);
+                        intent = new Intent(Pret1.this, Conifere1.class);
                         startActivity(intent);
-                    } else if (position == 2){
+                    } else if (position == 2) {
 
                     }
-
-
 
 
                     //Fermer le draerLayout après une selection
@@ -122,22 +146,26 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_accueil:
                 Toast.makeText(getApplicationContext(), R.string.action_accueil,
                         Toast.LENGTH_LONG).show();
+                Intent intent = new Intent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+
                 traiter = true;
                 break;
             case R.id.menu_aide:
-                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Pret1.this);
                 boiteAlert.setTitle(R.string.action_aide);
                 boiteAlert.setIcon(R.drawable.ic_info_aide);
-                boiteAlert.setMessage(R.string.aide_accueil);
+                boiteAlert.setMessage(R.string.aide_pret);
 
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
-                   @Override
-                    public void onClick( DialogInterface dialog, int whichButton ){
-                       //Traitement pour le bouton tout à droite.
-                       Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
-                               Toast.LENGTH_LONG).show();
-                   }
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //Traitement pour le bouton tout à droite.
+                        Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
+                                Toast.LENGTH_LONG).show();
+                    }
                 });
                 //Créer un AlertDialog
                 AlertDialog boiteAlertDialog = boiteAlert.create();
