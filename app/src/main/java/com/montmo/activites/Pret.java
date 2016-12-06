@@ -72,8 +72,10 @@ public class Pret implements Parcelable {
     public double calculerVersement() {
 
         double versement = 0;
-
-        // TODO (À COMPLÉTER). Voir page 10 de l'énoncé du TP3.
+        if ( getDuree() > 0 && getInteret() > 0 && getMontant() > 0){
+            double tauxMois = getInteret() / 100 / 12;
+            versement = (getMontant() * tauxMois)/(1- Math.pow((1 + tauxMois),-getDuree()));
+        }
 
         return versement;
     }
@@ -81,8 +83,9 @@ public class Pret implements Parcelable {
     // Calculer le prêt total.
     public double calculerPretTotal() {
         double pretTotal = 0;
-
-        // TODO (À COMPLÉTER). Voir page 10 de l'énoncé du TP3.
+        if ( getDuree() > 0 && getInteret() > 0 && getMontant() > 0){
+            pretTotal = calculerVersement() * getDuree();
+        }
 
         return pretTotal;
     }
@@ -90,8 +93,9 @@ public class Pret implements Parcelable {
     // Calculer l'intérêt total.
     public double calculerInteretTotal() {
         double interetTotal = 0;
-
-        // TODO (À COMPLÉTER). Voir page 10 de l'énoncé du TP3.
+        if ( getDuree() > 0 && getInteret() > 0 && getMontant() > 0){
+            interetTotal = calculerPretTotal() - getMontant();
+        }
 
         return interetTotal;
     }
