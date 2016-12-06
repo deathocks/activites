@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ public class Pret1 extends AppCompatActivity {
     private Spinner listeMois;
     private Button boutonCalcul, boutonEffacer;
     private Pret pret;
+    private PopupMenu popupMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,15 @@ public class Pret1 extends AppCompatActivity {
 
         pret = new Pret();
 
+        String durer = listeMois.getItemAtPosition(0).toString().substring(0, 1);
+        int dure = Integer.parseInt(durer);
+        pret.setDuree(dure);
+
+        //Définir l'écouteur du spinner des mois dans une variable.
+        listeMois.setOnItemClickListener(ecouterSpinner);
+        //Définir l'écouteur du bouton dasn une variable.
+        boutonCalcul.setOnClickListener(ecouterButton);
+        menuContextuel();
     }
 
     public void RecupererComposant() {
@@ -48,6 +59,53 @@ public class Pret1 extends AppCompatActivity {
         boutonCalcul = (Button) findViewById(R.id.txt_btn_calculer);
         boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
     }
+
+    public void menuContextuel() {
+        //Récuperer le champ text pour le menu contextuel pop-pu
+        boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
+        //Créer l'objet PopupMenu en précisant le contexte de l'activité
+        // et la vue à laquelle il sera attaché.
+        popupMenu = new PopupMenu(this, );
+
+        //Désérialiser le menu contextuel pop-up. Transformer en véritable objet.
+        popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
+
+        //Gérer les sélections des entrées du menu contextuel pop-up.
+        boutonEffacer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View vue) {
+                //Afficher le menu contextuel pop-up.
+                popupMenu.show();
+            }
+        });
+    }
+
+    //Variable qui gère les choix du PopupMenu.
+    PopupMenu.OnMenuItemClickListener ecouterPopupMenu =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    //Retourne false par défault, car elle ne sait pas gérer l'item.
+                    boolean traiter = false;
+
+                    // item.getItemId() contient l'identifiant de l'item cliqué
+                    switch (item.getItemId()) {
+                        case R.id.menu_effacer_montant:
+                            textMontant.setText("");
+                            break;
+                        case R.id.menu_effacer_interet:
+                            textInteret.setText("");
+                            break;
+                        case R.id.menu_effacer_montant_interet:
+                            textMontant.setText("");
+                            textInteret.setText("");
+                            break;
+
+                    }
+                    return traiter;
+                }
+
+            };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
