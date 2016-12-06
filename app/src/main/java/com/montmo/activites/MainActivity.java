@@ -1,5 +1,8 @@
 package com.montmo.activites;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -74,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
+                    //Exemple d'intention explicite.
+                    //La nouvelle intention contient le contexte de l'activité
+                    // appelant et le nom de l'activité.
+                    Intent intent = new Intent();
+                    if(position == 0){
+                        intent = new Intent(MainActivity.this, Pret.class);
+                        startActivity(intent);
+                    } else if (position == 1) {
+                        intent = new Intent(MainActivity.this, Conifere.class);
+                        startActivity(intent);
+                    } else if (position == 2){
+
+                    }
+
+
+
+
                     //Fermer le draerLayout après une selection
                     drawerLayout.closeDrawers();
 
@@ -105,8 +125,26 @@ public class MainActivity extends AppCompatActivity {
                 traiter = true;
                 break;
             case R.id.menu_aide:
-                Toast.makeText(getApplicationContext(), R.string.action_aide,
-                        Toast.LENGTH_LONG).show();
+                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(MainActivity.this);
+                boiteAlert.setTitle(R.string.action_aide);
+                boiteAlert.setIcon(R.drawable.ic_info_aide);
+                boiteAlert.setMessage(R.string.aide_accueil);
+
+                //Écouteur pour le bouton qui se trouvera tout à droite.
+                boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
+                   @Override
+                    public void onClick( DialogInterface dialog, int whichButton ){
+                       //Traitement pour le bouton tout à droite.
+                       Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
+                               Toast.LENGTH_LONG).show();
+                   }
+                });
+                //Créer un AlertDialog
+                AlertDialog boiteAlertDialog = boiteAlert.create();
+                //Afficher la boite de dialog
+                boiteAlertDialog.show();
+
+
                 traiter = true;
                 break;
 

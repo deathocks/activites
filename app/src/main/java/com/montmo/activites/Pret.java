@@ -14,7 +14,7 @@
  * C’est l’équivalent de la sérialisation pour le passage d’objet entre différentes activités.
  */
 
-package com.montmo.tp3_254;
+package com.montmo.activites;
 
 import android.os.Parcel;
 import android.os.Parcelable;
