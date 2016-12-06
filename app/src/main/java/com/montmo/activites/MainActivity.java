@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
+    //Méthode appelée après les méthodes onStart et onRestoreInstnceState
+    //pour finaliser les initialisation.
+    //Ici, on veut synchroniser le drawerToggle pour qu'il bascule entre l'icone hamburger
+    //et l'icone de la fleche de remontee dans la barre d'actions.
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -89,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
     //Gestionnaire d'événements pour la barre d'actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //Return false by default
         boolean traiter = super.onOptionsItemSelected(item);
 
-        // item.getItemid()
+        // item.getItemid() contient l'identifiant de l'item cliqué
         switch (item.getItemId()) {
+            //Traitement de chaque item de la barre d'actions
             case R.id.menu_accueil:
                 Toast.makeText(getApplicationContext(), R.string.action_accueil,
                         Toast.LENGTH_LONG).show();
@@ -108,11 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        //Deleguer le clic de l'icone hamburger ou de la fleche de remontee au DrawerLayout
+        //et non a la barre d'action
         if (drawerToggle.onOptionsItemSelected(item)) {
             traiter = true;
 
         }
 
+        //Return true si bien gere
         return traiter;
     }
 }
