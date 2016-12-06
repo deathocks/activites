@@ -1,7 +1,9 @@
 package com.montmo.activites;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +22,12 @@ import android.widget.Toast;
  */
 
 public class Conifere1 extends AppCompatActivity {
+    public static final String CLE_CONIFERE = "ClefConifere1";
+    public static final int REQUETE_TEXT_CONIFERE = 1;
+    private String nomConifere;
+    private int idImageConifere;
+    private String webConifere;
+    private Resources res;
     private ListView listViewConifere;
     private TextView textViewConifere;
 
@@ -27,6 +35,7 @@ public class Conifere1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conifere1);
+        res = getResources();
 
         menuDrawerLayour();
         recupererComposante();
@@ -41,6 +50,7 @@ public class Conifere1 extends AppCompatActivity {
     private void recupererComposante(){
         listViewConifere = (ListView) findViewById(R.id.id_list_conifere);
         textViewConifere = (TextView) findViewById(R.id.id_img_conifere);
+        listViewConifere.setOnItemClickListener(ecouterListViewConifere);
     }
 
     private ListView listView;
@@ -108,6 +118,65 @@ public class Conifere1 extends AppCompatActivity {
 
                 }
             };
+    //Définition de la variable qui écoute la liste des coniferes
+    private AdapterView.OnItemClickListener ecouterListViewConifere =
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView parent, View view, int position, long id) {
+                    //parent.getItemAtPosition(position) permet de
+                    //recuperer l'item qui a été sélectionné.
+                    //String itemChoisi = parent.getItemAtPosition(position).toString();
+
+                    //Exemple d'intention explicite.
+                    //La nouvelle intention contient le contexte de l'activité
+                    // appelant et le nom de l'activité.
+                    Intent intent = new Intent(Conifere1.this, Conifere2.class);
+                    intent.putExtra(CLE_CONIFERE,position);
+                    startActivityForResult(intent,REQUETE_TEXT_CONIFERE);
+
+                }
+            };
+    private AdapterView.OnClickListener ecouterTextViewConifere =
+            new AdapterView.OnClickListener() {
+                @Override
+                public void onItemClick(AdapterView parent, View view, int position, long id) {
+                    //parent.getItemAtPosition(position) permet de
+                    //recuperer l'item qui a été sélectionné.
+                    //String itemChoisi = parent.getItemAtPosition(position).toString();
+
+                    //Exemple d'intention explicite.
+                    //La nouvelle intention contient le contexte de l'activité
+                    // appelant et le nom de l'activité.
+                    Intent intent = new Intent(Conifere1.this, Conifere2.class);
+                    intent.putExtra(CLE_CONIFERE,position);
+                    startActivityForResult(intent,REQUETE_TEXT_CONIFERE);
+
+                }
+            };
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data){
+        //Verifier qe c'est la bonne activité
+        if( requestCode == REQUETE_TEXT_CONIFERE){
+            //Preparer le message a afficher
+            String message = res.getString(R.string.mess_res_arbre);
+            //Est-ce que le boutn pour terminer
+            //a ete clique dans l'ecran suivant
+            if (resultCode == Activity.RESULT_OK){
+                //Appui du bouton Terminer
+                idImageConifere = data.getIntExtra("ClefidImage", 0);
+                nomConifere = data.getStringExtra("ClefNomConifere");
+                webConifere = data.getStringExtra("ClefWebConifere");
+                message += "\n" + nomConifere;
+                textViewConifere.setText(message);
+                textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );
+                textViewConifere.setOnClickListener(ecouterTextViewConifere);
+            }else{
+                //Appui du bouton back
+                textViewConifere.setText("");
+                textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
+            }
+        }
+    }
 
     //Méthode appelée après les méthodes onStart et onRestoreInstnceState
     //pour finaliser les initialisation.
