@@ -67,11 +67,11 @@ public class Pret1 extends AppCompatActivity {
         //Créer l'objet PopupMenu en précisant le contexte de l'activité
         // et la vue à laquelle il sera attaché.
 
-        // TODO: 2016-12-07
-        //popupMenu = new PopupMenu(this, );
+
+        popupMenu = new PopupMenu(this,boutonEffacer);
 
         //Désérialiser le menu contextuel pop-up. Transformer en véritable objet.
-        popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.menu.menu_contextuel, popupMenu.getMenu());
 
         //Gérer les sélections des entrées du menu contextuel pop-up.
         boutonEffacer.setOnClickListener(new View.OnClickListener() {
