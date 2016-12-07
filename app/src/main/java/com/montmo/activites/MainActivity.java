@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     //Exemple d'intention explicite.
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
-                    Intent intent = new Intent();
+                    Intent intent;
                     if(position == 0){
                         intent = new Intent(MainActivity.this, Pret1.class);
                         startActivity(intent);

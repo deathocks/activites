@@ -136,23 +136,14 @@ public class Conifere1 extends AppCompatActivity {
 
                 }
             };
-    private AdapterView.OnClickListener ecouterTextViewConifere =
-            new AdapterView.OnClickListener() {
-                @Override
-                public void onItemClick(AdapterView parent, View view, int position, long id) {
-                    //parent.getItemAtPosition(position) permet de
-                    //recuperer l'item qui a été sélectionné.
-                    //String itemChoisi = parent.getItemAtPosition(position).toString();
 
-                    //Exemple d'intention explicite.
-                    //La nouvelle intention contient le contexte de l'activité
-                    // appelant et le nom de l'activité.
-                    Intent intent = new Intent(Conifere1.this, Conifere2.class);
-                    intent.putExtra(CLE_CONIFERE,position);
-                    startActivityForResult(intent,REQUETE_TEXT_CONIFERE);
+    public void openWiki(View v)
+    {
+        // do something
+    }
 
-                }
-            };
+
+
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data){
         //Verifier qe c'est la bonne activité
@@ -169,7 +160,7 @@ public class Conifere1 extends AppCompatActivity {
                 message += "\n" + nomConifere;
                 textViewConifere.setText(message);
                 textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );
-                textViewConifere.setOnClickListener(ecouterTextViewConifere);
+                //textViewConifere.setOnClickListener(ecouterTextViewConifere);
             }else{
                 //Appui du bouton back
                 textViewConifere.setText("");

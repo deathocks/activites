@@ -43,10 +43,11 @@ public class Pret1 extends AppCompatActivity {
         int dure = Integer.parseInt(durer);
         pret.setDuree(dure);
 
+    // TODO: 2016-12-07
         //Définir l'écouteur du spinner des mois dans une variable.
-        listeMois.setOnItemClickListener(ecouterSpinner);
+        //listeMois.setOnItemClickListener(ecouterSpinner);
         //Définir l'écouteur du bouton dasn une variable.
-        boutonCalcul.setOnClickListener(ecouterButton);
+        //boutonCalcul.setOnClickListener(ecouterButton);
         menuContextuel();
     }
 
@@ -65,7 +66,9 @@ public class Pret1 extends AppCompatActivity {
         boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
         //Créer l'objet PopupMenu en précisant le contexte de l'activité
         // et la vue à laquelle il sera attaché.
-        popupMenu = new PopupMenu(this, );
+
+        // TODO: 2016-12-07
+        //popupMenu = new PopupMenu(this, );
 
         //Désérialiser le menu contextuel pop-up. Transformer en véritable objet.
         popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
