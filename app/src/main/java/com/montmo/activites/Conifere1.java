@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +24,10 @@ import android.widget.Toast;
  */
 
 public class Conifere1 extends AppCompatActivity {
-    public static final String CLE_CONIFERE = "ClefConifere1";
+    public static final String CLE_CONIFERE = "ClefConifere";
+    public static final String CLE_CONIFERE_IMAGE = "ClefidImage";
+    public static final String CLE_CONIFERE_NOM = "ClefNomConifere";
+    public static final String CLE_CONIFERE_WEB = "ClefWebConifere";
     public static final int REQUETE_TEXT_CONIFERE = 1;
     private String nomConifere;
     private int idImageConifere;
@@ -137,11 +142,15 @@ public class Conifere1 extends AppCompatActivity {
                 }
             };
 
-    public void openWiki(View v)
-    {
-        // do something
-    }
-
+    private View.OnClickListener ecouterTextViewConifere = new View.OnClickListener(){
+        @Override
+        public void onClick (View vue){
+            Intent intent = new Intent(Conifere1.this, Conifere3.class);
+            intent.putExtra(CLE_CONIFERE_NOM,nomConifere);
+            intent.putExtra(CLE_CONIFERE_WEB,webConifere);
+            startActivity(intent);
+        }
+    };
 
 
     @Override
@@ -160,12 +169,50 @@ public class Conifere1 extends AppCompatActivity {
                 message += "\n" + nomConifere;
                 textViewConifere.setText(message);
                 textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );
-                //textViewConifere.setOnClickListener(ecouterTextViewConifere);
+                textViewConifere.setOnClickListener(ecouterTextViewConifere);
             }else{
                 //Appui du bouton back
                 textViewConifere.setText("");
                 textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
             }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState( Bundle savedInstanceState){
+        if(BuildConfig.DEBUG){
+            Log.i(this.getClass().getSimpleName(), "onSaveInstanceState est appelée");
+        }
+        savedInstanceState.putInt("idImageConifere",idImageConifere );
+        savedInstanceState.putString("nomConifere", nomConifere);
+        savedInstanceState.putString("webConifere", webConifere);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void  onRestoreInstanceState(Bundle savedInstanceState){
+        if(BuildConfig.DEBUG){
+            Log.i(this.getClass().getSimpleName(), "onRestoreInstanceState est appelée");
+        }
+        super.onRestoreInstanceState(savedInstanceState);
+        idImageConifere = savedInstanceState.getInt("idImageConifere");
+        nomConifere = savedInstanceState.getString("nomConifere");
+        webConifere = savedInstanceState.getString("webConifere");
+
+        if (nomConifere.isEmpty()){
+            //Appui du bouton Terminer
+            idImageConifere = data.getIntExtra("ClefidImage", 0);
+            nomConifere = data.getStringExtra("ClefNomConifere");
+            webConifere = data.getStringExtra("ClefWebConifere");
+            String message = res.getString(R.string.mess_res_arbre);
+            message += "\n" + nomConifere;
+            textViewConifere.setText(message);
+            textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );
+            textViewConifere.setOnClickListener(ecouterTextViewConifere);
+        }else{
+            //Appui du bouton back
+            textViewConifere.setText("");
+            textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
         }
     }
 
