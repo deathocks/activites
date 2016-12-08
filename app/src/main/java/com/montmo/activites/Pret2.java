@@ -7,148 +7,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
- * Created by Julien on 2016-12-06.
+ * Created by Julien on 2016-12-08.
  */
-public class Pret1 extends AppCompatActivity {
-    private EditText textMontant, textInteret;
-    private Spinner listeMois;
-    private Button boutonCalcul, boutonEffacer;
-    private Pret pret;
-    private PopupMenu popupMenu;
+public class Pret2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pret);
+        setContentView(R.layout.activity_calcul);
 
         menuDrawerLayour();
 
-        RecupererComposant();
 
-        pret = new Pret();
-
-        String durer = listeMois.getItemAtPosition(0).toString().substring(0, 1);
-        int dure = Integer.parseInt(durer);
-        pret.setDuree(dure);
-
-        //Définir l'écouteur du spinner des mois dans une variable.
-        listeMois.setOnItemSelectedListener(ecouterSpinner);
-        //Définir l'écouteur du bouton dasn une variable.
-        boutonCalcul.setOnClickListener(ecouterButton);
-
-        menuContextuel();
     }
-
-    private View.OnClickListener ecouterButton =
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if ((textMontant.getText() == null || (textMontant.getText().equals(0)) || ((textInteret.getText() == null) || (textInteret.getText().equals(0))))) {
-                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
-                    } else {
-                        Intent intent = new Intent(Pret1.this, Pret2.class);
-                        startActivity(intent);
-                    }
-                }
-
-            };
-
-    public void RecupererComposant() {
-        textMontant = (EditText) findViewById(R.id.edit_montant);
-        textInteret = (EditText) findViewById(R.id.edit_interet);
-
-        listeMois = (Spinner) findViewById(R.id.liste_mois);
-
-        boutonCalcul = (Button) findViewById(R.id.txt_btn_calculer);
-        boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
-    }
-
-    public void menuContextuel() {
-        //Récuperer le champ text pour le menu contextuel pop-pu
-        boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
-        //Créer l'objet PopupMenu en précisant le contexte de l'activité
-        // et la vue à laquelle il sera attaché.
-
-
-        popupMenu = new PopupMenu(this, boutonEffacer);
-
-        //Désérialiser le menu contextuel pop-up. Transformer en véritable objet.
-        popupMenu.getMenuInflater().inflate(R.menu.menu_contextuel, popupMenu.getMenu());
-
-        //Gérer les sélections des entrées du menu contextuel pop-up.
-        boutonEffacer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View vue) {
-                //Afficher le menu contextuel pop-up.
-                popupMenu.show();
-            }
-        });
-    }
-
-    private AdapterView.OnItemSelectedListener ecouterSpinner =
-            new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                    //Quand changement dans la sélection.
-                    // parent.getItemAtPosition( position ) permet de
-                    // récupérer l'item qui a été sélectionné.
-                    String itemChoisi =
-                            parent.getItemAtPosition(position).toString();
-                    //Affiche un toast de l'item choisi.
-                    Toast.makeText(getApplicationContext(), itemChoisi,
-                            Toast.LENGTH_SHORT).show();
-                    String durer = listeMois.getItemAtPosition(0).toString().substring(0, 1);
-                    int dure = Integer.parseInt(durer);
-                    pret.setDuree(dure);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                    //Quand la sélection disparait.
-                    // Quand l'item choisi n'est plus disponible
-                }
-            };
-
-
-    //Variable qui gère les choix du PopupMenu.
-    PopupMenu.OnMenuItemClickListener ecouterPopupMenu =
-            new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    //Retourne false par défault, car elle ne sait pas gérer l'item.
-                    boolean traiter = false;
-
-                    // item.getItemId() contient l'identifiant de l'item cliqué
-                    switch (item.getItemId()) {
-                        case R.id.menu_effacer_montant:
-                            textMontant.setText("");
-                            break;
-                        case R.id.menu_effacer_interet:
-                            textInteret.setText("");
-                            break;
-                        case R.id.menu_effacer_montant_interet:
-                            textMontant.setText("");
-                            textInteret.setText("");
-                            break;
-
-                    }
-                    return traiter;
-                }
-
-            };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -180,8 +59,6 @@ public class Pret1 extends AppCompatActivity {
         //Récuperer une référence à la bare avec Appcompat
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
-
-        actionBar.setSubtitle(R.string.titre_pret);
         //Ajouter la flèche de remonté et la rendre cliquable
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -206,13 +83,12 @@ public class Pret1 extends AppCompatActivity {
                     //Exemple d'intention explicite.
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
-                    Intent intent = new Intent();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent intent;
                     if (position == 0) {
-                        intent = new Intent(Pret1.this, Pret1.class);
+                        intent = new Intent(Pret2.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {
-                        intent = new Intent(Pret1.this, Conifere1.class);
+                        intent = new Intent(Pret2.this, Conifere1.class);
                         startActivity(intent);
                     } else if (position == 2) {
 
@@ -247,17 +123,13 @@ public class Pret1 extends AppCompatActivity {
             case R.id.menu_accueil:
                 Toast.makeText(getApplicationContext(), R.string.action_accueil,
                         Toast.LENGTH_LONG).show();
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-
                 traiter = true;
                 break;
             case R.id.menu_aide:
-                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Pret1.this);
+                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Pret2.this);
                 boiteAlert.setTitle(R.string.action_aide);
                 boiteAlert.setIcon(R.drawable.ic_info_aide);
-                boiteAlert.setMessage(R.string.aide_pret);
+                boiteAlert.setMessage(R.string.aide_accueil);
 
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
