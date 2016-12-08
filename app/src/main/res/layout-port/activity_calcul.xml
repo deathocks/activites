@@ -76,7 +76,7 @@
                 android:text="@string/titre_info_duree" />
 
             <TextView
-                android:id="@+id/id_titre_calcule"
+                android:id="@+id/id_titre_duree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"

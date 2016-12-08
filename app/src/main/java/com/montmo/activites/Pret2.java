@@ -11,13 +11,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.Locale;
 
 /**
  * Created by Julien on 2016-12-08.
  */
 public class Pret2 extends AppCompatActivity {
+    private Button boutonRetour;
+    private TextView textMontant;
+    private TextView textTaux;
+    private TextView textDuree;
+    private TextView textVersement;
+    private TextView textInteret;
+    private TextView textTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +39,49 @@ public class Pret2 extends AppCompatActivity {
 
         menuDrawerLayour();
 
+        RecupererComposant();
+
+        afficherResultats();
+
+        boutonRetour.setOnClickListener(ecouterButton);
 
     }
+
+    private void RecupererComposant() {
+        boutonRetour = (Button) findViewById(R.id.txt_btn_retour);
+
+        textMontant = (TextView) findViewById(R.id.id_titre_pret);
+        textTaux = (TextView) findViewById(R.id.id_titre_taux);
+        textDuree = (TextView) findViewById(R.id.id_titre_duree);
+        textVersement = (TextView) findViewById(R.id.id_titre_versement);
+        textInteret = (TextView) findViewById(R.id.id_titre_int_total);
+        textTotal = (TextView) findViewById(R.id.id_titre_total);
+
+    }
+
+    private void afficherResultats() {
+        Intent intent = getIntent();
+        Pret pret = intent.getParcelableExtra(Pret1.CLE_PRET);
+
+
+        textMontant.setText(String.format(Locale.getDefault(), "%1$.2f", pret.getMontant()));
+        textDuree.setText(Integer.toString(pret.getDuree()));
+        textTaux.setText(String.format(Locale.getDefault(), "%1$.2f", pret.getInteret()));
+        textVersement.setText(String.format(Locale.getDefault(), "%1$.2f", pret.calculerVersement()));
+        textInteret.setText(String.format(Locale.getDefault(), "%1$.2f", pret.calculerInteretTotal()));
+        textTotal.setText(String.format(Locale.getDefault(), "%1$.2f", pret.calculerPretTotal()));
+
+
+    }
+
+    private View.OnClickListener ecouterButton =
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+
+            };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +113,7 @@ public class Pret2 extends AppCompatActivity {
         //Récuperer une référence à la bare avec Appcompat
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
+        actionBar.setSubtitle(R.string.sous_titre_infos_pret);
         //Ajouter la flèche de remonté et la rendre cliquable
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -83,7 +138,8 @@ public class Pret2 extends AppCompatActivity {
                     //Exemple d'intention explicite.
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
-                    Intent intent;
+                    Intent intent = new Intent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     if (position == 0) {
                         intent = new Intent(Pret2.this, Pret1.class);
                         startActivity(intent);
@@ -123,13 +179,16 @@ public class Pret2 extends AppCompatActivity {
             case R.id.menu_accueil:
                 Toast.makeText(getApplicationContext(), R.string.action_accueil,
                         Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 traiter = true;
                 break;
             case R.id.menu_aide:
                 AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Pret2.this);
-                boiteAlert.setTitle(R.string.action_aide);
+                boiteAlert.setTitle(R.string.aide_infos_pret);
                 boiteAlert.setIcon(R.drawable.ic_info_aide);
-                boiteAlert.setMessage(R.string.aide_accueil);
+                boiteAlert.setMessage(R.string.aide_infos_pret);
 
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {

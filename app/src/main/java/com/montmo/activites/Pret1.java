@@ -28,6 +28,10 @@ public class Pret1 extends AppCompatActivity {
     private Pret pret;
     private PopupMenu popupMenu;
 
+    public static final String NOM_PACKAGE = Pret1.class.getPackage().getName();
+    public static final String CLE_PRET = NOM_PACKAGE + ".PRET1";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +43,7 @@ public class Pret1 extends AppCompatActivity {
 
         pret = new Pret();
 
-        String durer = listeMois.getItemAtPosition(0).toString().substring(0, 1);
+        String durer = listeMois.getItemAtPosition(0).toString().substring(0, 2);
         int dure = Integer.parseInt(durer);
         pret.setDuree(dure);
 
@@ -51,19 +55,35 @@ public class Pret1 extends AppCompatActivity {
         menuContextuel();
     }
 
-    private View.OnClickListener ecouterButton =
-            new View.OnClickListener() {
+    private Button.OnClickListener ecouterButton =
+            new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if ((textMontant.getText() == null || (textMontant.getText().equals(0)) || ((textInteret.getText() == null) || (textInteret.getText().equals(0))))) {
+                    String mont = textMontant.getText().toString();
+                    String inte = textInteret.getText().toString();
+                    if(mont.equals("") || Integer.parseInt(mont) == 0){
+                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
+                    } else if(inte.equals("") || Integer.parseInt(inte) == 0) {
                         Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(Pret1.this, Pret2.class);
+                        SauvegarderInfosConnexion(intent);
                         startActivity(intent);
                     }
                 }
 
             };
+
+    //Méthode qui sauvegarde les infos de la connexion dans l'objet intent
+    private void SauvegarderInfosConnexion(Intent intent) {
+        //Sauvegarder les données extras avec un objet Pret dans l'intent.
+
+        Pret pret1 = new Pret(Double.parseDouble(textMontant.getText().toString()),
+                Double.parseDouble(textInteret.getText().toString()), pret.getDuree());
+        intent.putExtra(CLE_PRET, pret1);
+
+
+    }
 
     public void RecupererComposant() {
         textMontant = (EditText) findViewById(R.id.edit_montant);
@@ -88,6 +108,9 @@ public class Pret1 extends AppCompatActivity {
         popupMenu.getMenuInflater().inflate(R.menu.menu_contextuel, popupMenu.getMenu());
 
         //Gérer les sélections des entrées du menu contextuel pop-up.
+        popupMenu.setOnMenuItemClickListener(ecouterPopupMenu);
+
+        //Gérer les sélections des entrées du menu contextuel pop-up.
         boutonEffacer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
@@ -110,7 +133,7 @@ public class Pret1 extends AppCompatActivity {
                     //Affiche un toast de l'item choisi.
                     Toast.makeText(getApplicationContext(), itemChoisi,
                             Toast.LENGTH_SHORT).show();
-                    String durer = listeMois.getItemAtPosition(0).toString().substring(0, 1);
+                    String durer = listeMois.getItemAtPosition(position).toString().substring(0, 2);
                     int dure = Integer.parseInt(durer);
                     pret.setDuree(dure);
                 }
@@ -247,7 +270,7 @@ public class Pret1 extends AppCompatActivity {
             case R.id.menu_accueil:
                 Toast.makeText(getApplicationContext(), R.string.action_accueil,
                         Toast.LENGTH_LONG).show();
-                Intent intent = new Intent();
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
 
