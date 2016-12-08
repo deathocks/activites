@@ -45,8 +45,7 @@
             android:id="@+id/id_img_conifere"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:onClick="openWiki"/>
+            android:drawablePadding="5dp"/>
         <!--Fin du layout.-->
     </LinearLayout>
 
