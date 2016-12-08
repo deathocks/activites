@@ -38,7 +38,9 @@
                 android:id="@+id/edit_montant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"/>
 
 
         </LinearLayout>
@@ -60,7 +62,9 @@
                 android:id="@+id/edit_interet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"/>
 
 
         </LinearLayout>
