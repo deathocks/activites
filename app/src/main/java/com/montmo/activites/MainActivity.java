@@ -88,11 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, Conifere1.class);
                         startActivity(intent);
                     } else if (position == 2){
-
+                        intent = new Intent(MainActivity.this, Dinosaurs1.class);
+                        startActivity(intent);
                     }
-
-
-
 
                     //Fermer le draerLayout après une selection
                     drawerLayout.closeDrawers();

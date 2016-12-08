@@ -13,105 +13,65 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
- * Created by Julien on 2016-12-06.
+ * Created by Julien on 2016-12-08.
  */
-public class Pret1 extends AppCompatActivity {
-    private EditText textMontant, textInteret;
-    private Spinner listeMois;
-    private Button boutonCalcul, boutonEffacer;
-    private Pret pret;
+public class Dinosaurs1 extends AppCompatActivity {
+    private Dinosaurs dinosaurs;
+    private Spinner listDino;
+    private ImageButton imgButtonDino;
     private PopupMenu popupMenu;
 
     public static final String NOM_PACKAGE = Pret1.class.getPackage().getName();
-    public static final String CLE_PRET = NOM_PACKAGE + ".PRET1";
-
+    public static final String CLE_PRET = NOM_PACKAGE + ".DINOSAURS1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pret);
+        setContentView(R.layout.activity_dino);
 
         menuDrawerLayour();
 
         RecupererComposant();
 
-        pret = new Pret();
+        dinosaurs = new Dinosaurs();
 
-        String durer = listeMois.getItemAtPosition(0).toString().substring(0, 2);
-        int dure = Integer.parseInt(durer);
-        pret.setDuree(dure);
+        String durer = listDino.getItemAtPosition(0).toString();
+        dinosaurs.setNom(durer);
 
         //Définir l'écouteur du spinner des mois dans une variable.
-        listeMois.setOnItemSelectedListener(ecouterSpinner);
-        //Définir l'écouteur du bouton dasn une variable.
-        boutonCalcul.setOnClickListener(ecouterButton);
+        listDino.setOnItemSelectedListener(ecouterSpinner);
 
         menuContextuel();
     }
 
-    private Button.OnClickListener ecouterButton =
-            new Button.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String mont = textMontant.getText().toString();
-                    String inte = textInteret.getText().toString();
-                    if(mont.equals("") || Integer.parseInt(mont) == 0){
-                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
-                    } else if(inte.equals("") || Integer.parseInt(inte) == 0) {
-                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
-                    } else {
-                        Intent intent = new Intent(Pret1.this, Pret2.class);
-                        SauvegarderInfosConnexion(intent);
-                        startActivity(intent);
-                    }
-                }
-
-            };
-
-    //Méthode qui sauvegarde les infos de la connexion dans l'objet intent
-    private void SauvegarderInfosConnexion(Intent intent) {
-        //Sauvegarder les données extras avec un objet Pret dans l'intent.
-
-        Pret pret1 = new Pret(Double.parseDouble(textMontant.getText().toString()),
-                Double.parseDouble(textInteret.getText().toString()), pret.getDuree());
-        intent.putExtra(CLE_PRET, pret1);
-
-
-    }
-
-    public void RecupererComposant() {
-        textMontant = (EditText) findViewById(R.id.edit_montant);
-        textInteret = (EditText) findViewById(R.id.edit_interet);
-
-        listeMois = (Spinner) findViewById(R.id.liste_mois);
-
-        boutonCalcul = (Button) findViewById(R.id.txt_btn_calculer);
-        boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
+    private void RecupererComposant() {
+        listDino = (Spinner) findViewById(R.id.liste_dino);
+        imgButtonDino = (ImageButton) findViewById(R.id.image_dino);
     }
 
     public void menuContextuel() {
         //Récuperer le champ text pour le menu contextuel pop-pu
-        boutonEffacer = (Button) findViewById(R.id.txt_btn_effacer);
+        imgButtonDino = (ImageButton) findViewById(R.id.image_dino);
         //Créer l'objet PopupMenu en précisant le contexte de l'activité
         // et la vue à laquelle il sera attaché.
 
 
-        popupMenu = new PopupMenu(this, boutonEffacer);
+        popupMenu = new PopupMenu(this, imgButtonDino);
 
         //Désérialiser le menu contextuel pop-up. Transformer en véritable objet.
-        popupMenu.getMenuInflater().inflate(R.menu.menu_contextuel, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
 
         //Gérer les sélections des entrées du menu contextuel pop-up.
         popupMenu.setOnMenuItemClickListener(ecouterPopupMenu);
 
         //Gérer les sélections des entrées du menu contextuel pop-up.
-        boutonEffacer.setOnClickListener(new View.OnClickListener() {
+        imgButtonDino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vue) {
                 //Afficher le menu contextuel pop-up.
@@ -119,6 +79,30 @@ public class Pret1 extends AppCompatActivity {
             }
         });
     }
+
+    //Variable qui gère les choix du PopupMenu.
+    PopupMenu.OnMenuItemClickListener ecouterPopupMenu =
+            new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    //Retourne false par défault, car elle ne sait pas gérer l'item.
+                    boolean traiter = false;
+
+                    // item.getItemId() contient l'identifiant de l'item cliqué
+                    switch (item.getItemId()) {
+                        case R.id.menu_annuler:
+                            Toast.makeText(getApplicationContext(), R.string.choix_annuler_search, Toast.LENGTH_LONG).show();
+                            break;
+                        case R.id.menu_search:
+                            Toast.makeText(getApplicationContext(), R.string.choix_search, Toast.LENGTH_LONG).show();
+
+
+                            break;
+                    }
+                    return traiter;
+                }
+
+            };
 
     private AdapterView.OnItemSelectedListener ecouterSpinner =
             new AdapterView.OnItemSelectedListener() {
@@ -133,9 +117,8 @@ public class Pret1 extends AppCompatActivity {
                     //Affiche un toast de l'item choisi.
                     Toast.makeText(getApplicationContext(), itemChoisi,
                             Toast.LENGTH_SHORT).show();
-                    String durer = listeMois.getItemAtPosition(position).toString().substring(0, 2);
-                    int dure = Integer.parseInt(durer);
-                    pret.setDuree(dure);
+                    String durer = listDino.getItemAtPosition(position).toString();
+                    dinosaurs.setNom(durer);
                 }
 
                 @Override
@@ -143,34 +126,6 @@ public class Pret1 extends AppCompatActivity {
                     //Quand la sélection disparait.
                     // Quand l'item choisi n'est plus disponible
                 }
-            };
-
-
-    //Variable qui gère les choix du PopupMenu.
-    PopupMenu.OnMenuItemClickListener ecouterPopupMenu =
-            new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    //Retourne false par défault, car elle ne sait pas gérer l'item.
-                    boolean traiter = false;
-
-                    // item.getItemId() contient l'identifiant de l'item cliqué
-                    switch (item.getItemId()) {
-                        case R.id.menu_effacer_montant:
-                            textMontant.setText("");
-                            break;
-                        case R.id.menu_effacer_interet:
-                            textInteret.setText("");
-                            break;
-                        case R.id.menu_effacer_montant_interet:
-                            textMontant.setText("");
-                            textInteret.setText("");
-                            break;
-
-                    }
-                    return traiter;
-                }
-
             };
 
     @Override
@@ -203,8 +158,6 @@ public class Pret1 extends AppCompatActivity {
         //Récuperer une référence à la bare avec Appcompat
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
-
-        actionBar.setSubtitle(R.string.titre_pret);
         //Ajouter la flèche de remonté et la rendre cliquable
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -232,13 +185,13 @@ public class Pret1 extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     if (position == 0) {
-                        intent = new Intent(Pret1.this, Pret1.class);
+                        intent = new Intent(Dinosaurs1.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {
-                        intent = new Intent(Pret1.this, Conifere1.class);
+                        intent = new Intent(Dinosaurs1.this, Conifere1.class);
                         startActivity(intent);
                     } else if (position == 2) {
-                        intent = new Intent(Pret1.this, Dinosaurs1.class);
+                        intent = new Intent(Dinosaurs1.this, Dinosaurs1.class);
                         startActivity(intent);
                     }
 
@@ -274,14 +227,13 @@ public class Pret1 extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
-
                 traiter = true;
                 break;
             case R.id.menu_aide:
-                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Pret1.this);
+                AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Dinosaurs1.this);
                 boiteAlert.setTitle(R.string.action_aide);
                 boiteAlert.setIcon(R.drawable.ic_info_aide);
-                boiteAlert.setMessage(R.string.aide_pret);
+                boiteAlert.setMessage(R.string.aide_dinosaurs);
 
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {

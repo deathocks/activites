@@ -147,7 +147,8 @@ public class Pret2 extends AppCompatActivity {
                         intent = new Intent(Pret2.this, Conifere1.class);
                         startActivity(intent);
                     } else if (position == 2) {
-
+                        intent = new Intent(Pret2.this, Dinosaurs1.class);
+                        startActivity(intent);
                     }
 
 

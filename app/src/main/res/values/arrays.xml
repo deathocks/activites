@@ -4,10 +4,20 @@
     <string-array name="tab_activites">
         <item>Calculer un prêt</item>
         <item>Identifier un conifère</item>
-        <item>Nom de la troisième activité</item>
+        <item>Apprendre sur les dinosaurs</item>
         </string-array>
 
     <string-array name="tab_duree">
+        <item>Compy</item>
+        <item>Dilophosaur</item>
+        <item>Dimorphodon</item>
+        <item>Diplodocus</item>
+        <item>Rex</item>
+        <item>Spinosaur</item>
+        <item>Stegosaurus</item>
+    </string-array>
+
+    <string-array name="tab_dino">
         <item>12 mois</item>
         <item>24 mois</item>
         <item>36 mois</item>

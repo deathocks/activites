@@ -18,6 +18,8 @@
         <activity android:name=".Conifere1"></activity>
         <activity android:name=".Pret1"></activity>
         <activity android:name=".Pret2"></activity>
+        <activity android:name=".Dinosaurs1"></activity>
+        <activity android:name=".Dinosaurs2"></activity>
     </application>
 
 </manifest>
