@@ -7,7 +7,7 @@
         <item>Apprendre sur les dinosaurs</item>
         </string-array>
 
-    <string-array name="tab_duree">
+    <string-array name="tab_dino">
         <item>Compy</item>
         <item>Dilophosaur</item>
         <item>Dimorphodon</item>
@@ -17,7 +17,7 @@
         <item>Stegosaurus</item>
     </string-array>
 
-    <string-array name="tab_dino">
+    <string-array name="tab_duree">
         <item>12 mois</item>
         <item>24 mois</item>
         <item>36 mois</item>

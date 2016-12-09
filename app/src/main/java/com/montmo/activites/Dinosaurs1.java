@@ -96,6 +96,10 @@ public class Dinosaurs1 extends AppCompatActivity {
                         case R.id.menu_search:
                             Toast.makeText(getApplicationContext(), R.string.choix_search, Toast.LENGTH_LONG).show();
 
+                            Intent intent = new Intent();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent = new Intent(Dinosaurs1.this, Dinosaurs2.class);
+                            startActivity(intent);
 
                             break;
                     }
@@ -117,8 +121,13 @@ public class Dinosaurs1 extends AppCompatActivity {
                     //Affiche un toast de l'item choisi.
                     Toast.makeText(getApplicationContext(), itemChoisi,
                             Toast.LENGTH_SHORT).show();
-                    String durer = listDino.getItemAtPosition(position).toString();
-                    dinosaurs.setNom(durer);
+                    String nom = listDino.getItemAtPosition(position).toString();
+                    dinosaurs.setNom(nom);
+
+
+                    int img = getResources().getIdentifier("com.montmo.activites:mipmap/" + itemChoisi.toLowerCase(), null, null);
+
+                    imgButtonDino.setImageResource(img);
                 }
 
                 @Override
