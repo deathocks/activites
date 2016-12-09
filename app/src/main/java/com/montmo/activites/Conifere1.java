@@ -199,11 +199,7 @@ public class Conifere1 extends AppCompatActivity {
         nomConifere = savedInstanceState.getString("nomConifere");
         webConifere = savedInstanceState.getString("webConifere");
 
-        if (nomConifere.isEmpty()){
-            //Appui du bouton Terminer
-            idImageConifere = data.getIntExtra("ClefidImage", 0);
-            nomConifere = data.getStringExtra("ClefNomConifere");
-            webConifere = data.getStringExtra("ClefWebConifere");
+        if (!nomConifere.isEmpty()){
             String message = res.getString(R.string.mess_res_arbre);
             message += "\n" + nomConifere;
             textViewConifere.setText(message);
@@ -245,7 +241,7 @@ public class Conifere1 extends AppCompatActivity {
                 break;
             case R.id.menu_aide:
                 AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Conifere1.this);
-                boiteAlert.setTitle(R.string.action_aide);
+                boiteAlert.setTitle(R.string.aide_conifere);
                 boiteAlert.setIcon(R.drawable.ic_info_aide);
                 boiteAlert.setMessage(R.string.aide_conifere);
 
