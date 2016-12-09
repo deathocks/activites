@@ -24,6 +24,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/prompt_choix_conifere" />
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recycler_conifere"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -36,6 +37,7 @@
         android:gravity="center|bottom"
         android:orientation="vertical" >
             <Button
+                android:id="@+id/id_bouton_conifere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_btn_retour"
