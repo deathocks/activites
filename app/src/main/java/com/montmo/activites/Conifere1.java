@@ -1,3 +1,13 @@
+/**
+ * Auteure : Benoit-Lynx Hamel & Julien Canuel
+ * Fichier : Conifere1.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
+
+/**
+ * Classe contenant les données et les méthodes pour lactivité un de conifère.
+ */
 package com.montmo.activites;
 
 import android.app.Activity;
@@ -163,9 +173,9 @@ public class Conifere1 extends AppCompatActivity {
             //a ete clique dans l'ecran suivant
             if (resultCode == Activity.RESULT_OK){
                 //Appui du bouton Terminer
-                idImageConifere = data.getIntExtra("ClefidImage", 0);
-                nomConifere = data.getStringExtra("ClefNomConifere");
-                webConifere = data.getStringExtra("ClefWebConifere");
+                idImageConifere = data.getIntExtra(CLE_CONIFERE_IMAGE, 0);
+                nomConifere = data.getStringExtra(CLE_CONIFERE_NOM);
+                webConifere = data.getStringExtra(CLE_CONIFERE_WEB);
                 message += "\n" + nomConifere;
                 textViewConifere.setText(message);
                 textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );

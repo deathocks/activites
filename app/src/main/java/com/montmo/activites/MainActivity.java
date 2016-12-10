@@ -1,3 +1,9 @@
+/**
+ * Auteure : Benoit-Lynx Hamel & Julien Canuel
+ * Fichier : Conifere1.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
 package com.montmo.activites;
 
 import android.content.DialogInterface;
@@ -22,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         menuDrawerLayour();
-
-
     }
 
     @Override

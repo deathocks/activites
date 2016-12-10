@@ -1,9 +1,20 @@
+/**
+ * Auteure : Benoit-Lynx Hamel & Julien Canuel
+ * Fichier : Conifere1.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
+
+/**
+ * Classe contenant les données et les méthodes pour lactivité deux de conifère.
+ */
 package com.montmo.activites;
 
 /**
  * Created by Lynx-Win7 on 2016-12-06.
  */
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -32,9 +43,14 @@ public class Conifere2 extends AppCompatActivity {
     private Button btnRetour;
     private TextView titreConifere;
     private String[]tabChaines;
+    private String[]tabNomConifere;
+    private String[]tabImgConifere;
     private RecyclerView recyclerConifere;
     private ArrayList<Conifere> listeConifere;
     private ConifereAdapterRV conifereAdapterRV;
+    private ListView listView;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
 
     // Ressources array des différents textes et images des items de la liste
     // pour aider à l'identification.
@@ -84,15 +100,51 @@ public class Conifere2 extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerConifere.setLayoutManager(linearLayoutManager);
-        //creerListeConifere();
-        // TODO: 2016-12-09 doc 12, page 41 et 54 pis pleur criss
+        creerListeConifere();
+        //Creer adapteur avec information sur l'activite
+        //Le Layout personalise de chaque item et la liste d'items
+        //L'adaptateur va gerer les items de la Recyclerview.
+        conifereAdapterRV = new ConifereAdapterRV(this,R.layout.item_liste_conifere,listeConifere);
+        //Apliquer l'adaptateur a la liste
+        recyclerConifere.setAdapter(conifereAdapterRV);
+
+        conifereAdapterRV.setOnItemClickListener(ecouterRecyclerConifere);
 
     }
 
-    /*private ArrayList<Conifere> creerListeConifere(){
+    private void creerListeConifere(){
+        //Recuperer les tableaux de String
+        tabNomConifere = res.getStringArray(TAB_AIGUILLES_CONIFERES[choix]);
+        tabImgConifere = res.getStringArray(TAB_IMAGES_AIGUILLES_CONIFERES[choix]);
+        //Crer la liste de conifere
+        listeConifere = new ArrayList<>();
+        //remplir la liste
+        for (int i = 0; i < tabNomConifere.length; i++){
+            //Convertir une chaine de caractere en identifiant drawable.
+            int idImage = res.getIdentifier(tabImgConifere[i],"drawable", this.getPackageName());
+            //crer et ajouter l'objet a la liste
+            Conifere conifere = new Conifere(tabNomConifere[i], idImage);
+            listeConifere.add(conifere);
+        }
 
     }
-*/
+
+    private ConifereAdapterRV.OnItemClickListener ecouterRecyclerConifere =
+            new ConifereAdapterRV.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    String[] nom = res.getStringArray(TAB_CONIFERES[choix]);
+                    String[] img = res.getStringArray(TAB_IMAGES_CONIFERES[choix]);
+                    String[] web = res.getStringArray(TAB_WEB_CONIFERES[choix]);
+                    intent.putExtra(Conifere1.CLE_CONIFERE_NOM,nom[position]);
+                    intent.putExtra(Conifere1.CLE_CONIFERE_IMAGE,img[position]);
+                    intent.putExtra(Conifere1.CLE_CONIFERE_WEB,web[position]);
+                    setResult(Activity.RESULT_OK,intent);
+                    finish();
+                }
+            };
+
+
     private void recupererComposante(){
         btnRetour = (Button) findViewById(R.id.id_bouton_conifere);
         titreConifere = (TextView) findViewById(R.id.id_titre_conifere2);
@@ -114,10 +166,6 @@ public class Conifere2 extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_barre_actions, menu);
         return true;
     }
-
-    private ListView listView;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle drawerToggle;
 
     //Méthode pour tester la création d'un menu glissant à gauche de l'application
     private void menuDrawerLayour() {
