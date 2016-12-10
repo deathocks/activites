@@ -12,6 +12,8 @@ package com.montmo.activites;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +22,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,12 +36,29 @@ import android.widget.Toast;
  * Created by Lynx-Win7 on 2016-12-06.
  */
 public class Conifere3 extends AppCompatActivity {
-    @Override
+    private Resources res;
+    private Intent intent;
+    private String nom;
+    private String web;
+    private WebView webView;
+    private WebSettings webSettings;
+
+    private ListView listView;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conifere3);
+        res = getResources();
+        //Recuperer l'objet intent precedent
+        intent = getIntent();
+        //Recupere la ressource Extra
+        nom = intent.getStringExtra(Conifere1.CLE_CONIFERE_NOM);
+        web = intent.getStringExtra(Conifere1.CLE_CONIFERE_WEB);
 
         menuDrawerLayour();
+        creerWebView();
     }
 
     @Override
@@ -42,9 +67,50 @@ public class Conifere3 extends AppCompatActivity {
         return true;
     }
 
-    private ListView listView;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle drawerToggle;
+    private void creerWebView() {
+        //Recupêrer le composant WebView
+        webView = (WebView) findViewById(R.id.id_web_view);
+        //acceder aux parametre du webview
+        webSettings = webView.getSettings();
+        //activer javascript
+        webSettings.setJavaScriptEnabled(true);
+        //afficher zoom et pincer
+        webSettings.setBuiltInZoomControls(true);
+        //gestionnaire pendant le chargement
+        webView.setWebChromeClient(ecouterChargementWeb);
+        //gestionnaire en cas d'erreur ou fin du chargement
+        webView.setWebViewClient(ecouterFinChargement);
+        //charger l'adresse url
+        webView.loadUrl(web);
+    }
+
+    //Traitement pendant chargement du contenu web
+    WebChromeClient ecouterChargementWeb = new WebChromeClient(){
+        @Override
+        public void onProgressChanged(WebView view, int progress){
+            Toast.makeText(getApplicationContext(), Integer.toString(progress) + " %",
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //Traitement en cas d'erreur ou fin du chargement
+    WebViewClient ecouterFinChargement = new WebViewClient(){
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request,
+                                    WebResourceError error){
+            String messErreur = res.getString(R.string.erreur_chargement_web);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                messErreur = messErreur.concat(error.getDescription().toString());
+            }
+            Toast.makeText(getApplicationContext(), messErreur, Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onPageFinished(WebView view, String url){
+            Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+        }
+
+    };
+
 
     //Méthode pour tester la création d'un menu glissant à gauche de l'application
     private void menuDrawerLayour() {
@@ -55,7 +121,8 @@ public class Conifere3 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -65,6 +132,7 @@ public class Conifere3 extends AppCompatActivity {
 
         //Récuperer une référence à la bare avec Appcompat
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setSubtitle(nom);
 
         //Ajouter la flèche de remonté et la rendre cliquable
         if (actionBar != null) {
@@ -91,6 +159,7 @@ public class Conifere3 extends AppCompatActivity {
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
                     Intent intent;
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     if(position == 0){
                         intent = new Intent(Conifere3.this, Pret1.class);
                         startActivity(intent);
@@ -130,13 +199,16 @@ public class Conifere3 extends AppCompatActivity {
             case R.id.menu_accueil:
                 Toast.makeText(getApplicationContext(), R.string.action_accueil,
                         Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 traiter = true;
                 break;
             case R.id.menu_aide:
                 AlertDialog.Builder boiteAlert = new AlertDialog.Builder(Conifere3.this);
                 boiteAlert.setTitle(R.string.action_aide);
                 boiteAlert.setIcon(R.drawable.ic_info_aide);
-                boiteAlert.setMessage(R.string.aide_accueil);
+                boiteAlert.setMessage(R.string.aide_web_conifere);
 
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
