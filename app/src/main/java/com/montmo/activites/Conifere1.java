@@ -3,6 +3,8 @@
  * Fichier : Conifere1.java
  * Date    : 12 décembre 2016
  * Cours   : 420-254-MO (TP3 Android)
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité un de conifère.
  */
 
 /**
@@ -62,7 +64,7 @@ public class Conifere1 extends AppCompatActivity {
         return true;
     }
 
-    private void recupererComposante(){
+    private void recupererComposante() {
         listViewConifere = (ListView) findViewById(R.id.id_list_conifere);
         textViewConifere = (TextView) findViewById(R.id.id_img_conifere);
         listViewConifere.setOnItemClickListener(ecouterListViewConifere);
@@ -119,13 +121,13 @@ public class Conifere1 extends AppCompatActivity {
                     // appelant et le nom de l'activité.
                     Intent intent = new Intent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    if(position == 0){
+                    if (position == 0) {
                         //intent = new Intent(Conifere1.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {
                         intent = new Intent(Conifere1.this, Conifere1.class);
                         startActivity(intent);
-                    } else if (position == 2){
+                    } else if (position == 2) {
 
                     }
                     //Fermer le draerLayout après une selection
@@ -146,41 +148,43 @@ public class Conifere1 extends AppCompatActivity {
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
                     Intent intent = new Intent(Conifere1.this, Conifere2.class);
-                    intent.putExtra(CLE_CONIFERE,position);
-                    startActivityForResult(intent,REQUETE_TEXT_CONIFERE);
+                    intent.putExtra(CLE_CONIFERE, position);
+                    startActivityForResult(intent, REQUETE_TEXT_CONIFERE);
 
                 }
             };
 
-    private View.OnClickListener ecouterTextViewConifere = new View.OnClickListener(){
+    private View.OnClickListener ecouterTextViewConifere = new View.OnClickListener() {
         @Override
-        public void onClick (View vue){
+        public void onClick(View vue) {
             Intent intent = new Intent(Conifere1.this, Conifere3.class);
-            intent.putExtra(CLE_CONIFERE_NOM,nomConifere);
-            intent.putExtra(CLE_CONIFERE_WEB,webConifere);
+            intent.putExtra(CLE_CONIFERE_NOM, nomConifere);
+            intent.putExtra(CLE_CONIFERE_WEB, webConifere);
             startActivity(intent);
         }
     };
 
 
     @Override
-    protected void onActivityResult (int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Verifier qe c'est la bonne activité
-        if( requestCode == REQUETE_TEXT_CONIFERE){
+        if (requestCode == REQUETE_TEXT_CONIFERE) {
             //Preparer le message a afficher
             String message = res.getString(R.string.mess_res_arbre);
             //Est-ce que le boutn pour terminer
             //a ete clique dans l'ecran suivant
-            if (resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 //Appui du bouton Terminer
-                idImageConifere = data.getIntExtra(CLE_CONIFERE_IMAGE, 0);
+                String nom = data.getStringExtra(CLE_CONIFERE_IMAGE);
                 nomConifere = data.getStringExtra(CLE_CONIFERE_NOM);
                 webConifere = data.getStringExtra(CLE_CONIFERE_WEB);
                 message += "\n" + nomConifere;
+                idImageConifere = res.getIdentifier(nom, "drawable", getPackageName());
+
                 textViewConifere.setText(message);
-                textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );
+                textViewConifere.setCompoundDrawablesWithIntrinsicBounds(idImageConifere, 0, 0, 0);
                 textViewConifere.setOnClickListener(ecouterTextViewConifere);
-            }else{
+            } else {
                 //Appui du bouton back
                 textViewConifere.setText("");
                 textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
@@ -189,19 +193,19 @@ public class Conifere1 extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState( Bundle savedInstanceState){
-        if(BuildConfig.DEBUG){
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        if (BuildConfig.DEBUG) {
             Log.i(this.getClass().getSimpleName(), "onSaveInstanceState est appelée");
         }
-        savedInstanceState.putInt("idImageConifere",idImageConifere );
+        savedInstanceState.putInt("idImageConifere", idImageConifere);
         savedInstanceState.putString("nomConifere", nomConifere);
         savedInstanceState.putString("webConifere", webConifere);
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
-    public void  onRestoreInstanceState(Bundle savedInstanceState){
-        if(BuildConfig.DEBUG){
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (BuildConfig.DEBUG) {
             Log.i(this.getClass().getSimpleName(), "onRestoreInstanceState est appelée");
         }
         super.onRestoreInstanceState(savedInstanceState);
@@ -209,13 +213,13 @@ public class Conifere1 extends AppCompatActivity {
         nomConifere = savedInstanceState.getString("nomConifere");
         webConifere = savedInstanceState.getString("webConifere");
 
-        if (!nomConifere.isEmpty()){
+        if (!nomConifere.isEmpty()) {
             String message = res.getString(R.string.mess_res_arbre);
             message += "\n" + nomConifere;
             textViewConifere.setText(message);
-            textViewConifere.setCompoundDrawablesWithIntrinsicBounds( idImageConifere, 0, 0, 0 );
+            textViewConifere.setCompoundDrawablesWithIntrinsicBounds(idImageConifere, 0, 0, 0);
             textViewConifere.setOnClickListener(ecouterTextViewConifere);
-        }else{
+        } else {
             //Appui du bouton back
             textViewConifere.setText("");
             textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
@@ -258,7 +262,7 @@ public class Conifere1 extends AppCompatActivity {
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick( DialogInterface dialog, int whichButton ){
+                    public void onClick(DialogInterface dialog, int whichButton) {
                         //Traitement pour le bouton tout à droite.
                         Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
                                 Toast.LENGTH_LONG).show();
