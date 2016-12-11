@@ -1,3 +1,9 @@
+/**
+ * Auteure : Julien Canuel & Benoit-Lynx Hamel
+ * Fichier : Dinosaurs1.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
 package com.montmo.activites;
 
 import android.content.DialogInterface;
@@ -12,15 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-/**
- * Created by Julien on 2016-12-08.
- */
 public class Dinosaurs1 extends AppCompatActivity {
     private Dinosaurs dinosaurs;
     private Spinner listDino;
@@ -92,10 +94,12 @@ public class Dinosaurs1 extends AppCompatActivity {
                     // item.getItemId() contient l'identifiant de l'item cliqué
                     switch (item.getItemId()) {
                         case R.id.menu_annuler:
-                            Toast.makeText(getApplicationContext(), R.string.choix_annuler_search, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.choix_annuler_search,
+                                    Toast.LENGTH_LONG).show();
                             break;
                         case R.id.menu_search:
-                            Toast.makeText(getApplicationContext(), R.string.choix_search, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.choix_search,
+                                    Toast.LENGTH_LONG).show();
 
                             Intent intent = new Intent();
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -134,10 +138,9 @@ public class Dinosaurs1 extends AppCompatActivity {
                     String nom = listDino.getItemAtPosition(position).toString();
                     dinosaurs.setNom(nom);
 
-
-                    int img = getResources().getIdentifier("com.montmo.activites:mipmap/" + itemChoisi.toLowerCase(), null, null);
-
-                    imgButtonDino.setImageResource(img);
+                    int resID = getResources().getIdentifier(itemChoisi.toLowerCase(), "drawable",
+                            getPackageName());
+                    imgButtonDino.setImageResource(resID);
                 }
 
                 @Override
@@ -166,7 +169,8 @@ public class Dinosaurs1 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);

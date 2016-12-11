@@ -1,7 +1,7 @@
 /**
- * Auteurs : TODO et Soti
+ * Auteurs : Benoit-Lynx Hamel et Julien Canuel et Soti
  * Fichier : Pret.java
- * Date    : 8 décembre 2016
+ * Date    : 12 décembre 2016
  * Cours   : 420-254-MO (TP3 Android)
  */
 

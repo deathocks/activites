@@ -1,3 +1,9 @@
+/**
+ * Auteure : Julien Canuel & Benoit-Lynx Hamel
+ * Fichier : Pret1.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
 package com.montmo.activites;
 
 import android.content.DialogInterface;
@@ -18,9 +24,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-/**
- * Created by Julien on 2016-12-06.
- */
 public class Pret1 extends AppCompatActivity {
     private EditText textMontant, textInteret;
     private Spinner listeMois;
@@ -61,10 +64,12 @@ public class Pret1 extends AppCompatActivity {
                 public void onClick(View v) {
                     String mont = textMontant.getText().toString();
                     String inte = textInteret.getText().toString();
-                    if(mont.equals("") || Integer.parseInt(mont) == 0){
-                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
-                    } else if(inte.equals("") || Integer.parseInt(inte) == 0) {
-                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret, Toast.LENGTH_LONG).show();
+                    if (mont.equals("") || Integer.parseInt(mont) == 0) {
+                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret,
+                                Toast.LENGTH_LONG).show();
+                    } else if (inte.equals("") || Integer.parseInt(inte) == 0) {
+                        Toast.makeText(getApplicationContext(), R.string.warning_infos_pret,
+                                Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(Pret1.this, Pret2.class);
                         SauvegarderInfosConnexion(intent);
@@ -192,7 +197,8 @@ public class Pret1 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);

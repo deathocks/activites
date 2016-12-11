@@ -1,11 +1,14 @@
+/**
+ * Auteure : Julien Canuel & Benoit-Lynx Hamel
+ * Fichier : Dinosaurs.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
 package com.montmo.activites;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Julien on 2016-12-08.
- */
 public class Dinosaurs implements Parcelable {
 
     // Variables d'instances.

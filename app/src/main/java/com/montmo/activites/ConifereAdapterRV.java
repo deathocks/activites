@@ -3,7 +3,7 @@
  * Fichier : ConifereAdapterRV.java
  * Date    : 8 décembre 2016
  * Cours   : 420-254-MO (TP3 Android)
- *
+ * <p/>
  * Classe représentant l'adaptateur personnalisé de la liste des conifères avec RecyclerView.
  * L'adaptateur va gérer les items de la RecyclerView.
  * Cette classe hérite de la classe RecyclerView.Adapter, on lui passe notre ViewHolder maison.
@@ -39,7 +39,7 @@ public class ConifereAdapterRV extends RecyclerView.Adapter<ConifereAdapterRV.Co
     }
 
     // Méthode maison pour affecter l'écouteur.
-    public void setOnItemClickListener( OnItemClickListener listener ) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.monItemClickListener = listener;
     }
 
@@ -58,12 +58,12 @@ public class ConifereAdapterRV extends RecyclerView.Adapter<ConifereAdapterRV.Co
          *
          * @param itemView Un item de la liste.
          */
-        public ConifereViewHolder( View itemView ) {
-            super( itemView );
+        public ConifereViewHolder(View itemView) {
+            super(itemView);
 
             // Récupérer l'élément graphique du layout de l'item.
 
-            vueConifere = (TextView) itemView.findViewById( R.id.id_item_conifere );
+            vueConifere = (TextView) itemView.findViewById(R.id.id_item_conifere);
         }
     }
 
@@ -74,7 +74,7 @@ public class ConifereAdapterRV extends RecyclerView.Adapter<ConifereAdapterRV.Co
      * @param layoutPersoId  Layout personnalisé de chaque item de la liste.
      * @param tabConiferes   Tableau des données à insérer dans la liste.
      */
-    public ConifereAdapterRV( Context context, int layoutPersoId, ArrayList<Conifere> tabConiferes ) {
+    public ConifereAdapterRV(Context context, int layoutPersoId, ArrayList<Conifere> tabConiferes) {
 
         this.tabConiferes = tabConiferes;
         this.layoutPersoId = layoutPersoId;
@@ -88,16 +88,16 @@ public class ConifereAdapterRV extends RecyclerView.Adapter<ConifereAdapterRV.Co
      *
      * @param parent    Vue parente dans laquelle la nouvelle vue va être ajoutée.
      * @param viewType  Le type de la nouvelle vue.
-     * @return          Une nouvelle vue (ViewHolder).
+     * @return Une nouvelle vue (ViewHolder).
      */
     @Override
-    public ConifereViewHolder onCreateViewHolder( ViewGroup parent, int viewType ) {
+    public ConifereViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Charger le layout pour un item de la liste.
-        View itemView = LayoutInflater.from( parent.getContext() )
-                                                    .inflate( layoutPersoId, parent, false );
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(layoutPersoId, parent, false);
 
         // Initialiser le ViewHolder.
-        return new ConifereViewHolder( itemView );
+        return new ConifereViewHolder(itemView);
     }
 
     /**
@@ -119,12 +119,12 @@ public class ConifereAdapterRV extends RecyclerView.Adapter<ConifereAdapterRV.Co
      * @param position           La position dans la liste.
      */
     @Override
-    public void onBindViewHolder( ConifereViewHolder conifereViewHolder, final int position ) {
+    public void onBindViewHolder(ConifereViewHolder conifereViewHolder, final int position) {
 
         // Quel item de la liste est cliqué.
 
         // Récupérer l'objet correspondant à la position.
-        final Conifere conifereChoisi = this.tabConiferes.get( position );
+        final Conifere conifereChoisi = this.tabConiferes.get(position);
 
         // Mettre à jour le nom et l'image du conifère.
         // Fait le lien entre le ViewHolder et les données.
@@ -135,13 +135,13 @@ public class ConifereAdapterRV extends RecyclerView.Adapter<ConifereAdapterRV.Co
                 conifereChoisi.getIdImage(), 0, 0, 0);
 
         // Écouteur quand l'utilisateur clique sur l'item.
-        conifereViewHolder.itemView.setOnClickListener( new View.OnClickListener() {
+        conifereViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick( View v ) {
-                if ( monItemClickListener != null ) {
+            public void onClick(View v) {
+                if (monItemClickListener != null) {
                     // La méthode onItemClick est implémentée dans l'activité.
-                    monItemClickListener.onItemClick( v, position );
+                    monItemClickListener.onItemClick(v, position);
                 }
             }
         });

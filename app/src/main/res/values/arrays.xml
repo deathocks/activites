@@ -5,7 +5,7 @@
         <item>Calculer un prêt</item>
         <item>Identifier un conifère</item>
         <item>Apprendre sur les dinosaurs</item>
-        </string-array>
+    </string-array>
 
     <string-array name="tab_dino">
         <item>Compy</item>
@@ -72,7 +72,7 @@
         <item>img_ecailles_cedre</item>
         <item>img_ecailles_genevrier</item>
     </string-array>
-    
+
     <string-array name="tab_coniferes_aiguilles_une">
         <item>Épinette</item>
         <item>Sapin baumier</item>
@@ -89,7 +89,7 @@
         <item>Cèdre (Thuya)</item>
         <item>Genévrier</item>
     </string-array>
-    
+
     <string-array name="tab_images_coniferes_aiguilles_une">
         <item>img_epinette</item>
         <item>img_sapin</item>

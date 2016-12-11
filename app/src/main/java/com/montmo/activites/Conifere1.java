@@ -5,6 +5,10 @@
  * Cours   : 420-254-MO (TP3 Android)
  * <p/>
  * Classe contenant les données et les méthodes pour lactivité un de conifère.
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité un de conifère.
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité un de conifère.
  */
 
 /**
@@ -30,10 +34,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-/**
- * Created by Lynx-Win7 on 2016-12-06.
- */
 
 public class Conifere1 extends AppCompatActivity {
     public static final String CLE_CONIFERE = "ClefConifere";
@@ -83,7 +83,8 @@ public class Conifere1 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -122,13 +123,14 @@ public class Conifere1 extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     if (position == 0) {
-                        //intent = new Intent(Conifere1.this, Pret1.class);
+                        intent = new Intent(Conifere1.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {
                         intent = new Intent(Conifere1.this, Conifere1.class);
                         startActivity(intent);
                     } else if (position == 2) {
-
+                        intent = new Intent(Conifere1.this, Dinosaurs1.class);
+                        startActivity(intent);
                     }
                     //Fermer le draerLayout après une selection
                     drawerLayout.closeDrawers();
@@ -187,7 +189,8 @@ public class Conifere1 extends AppCompatActivity {
             } else {
                 //Appui du bouton back
                 textViewConifere.setText("");
-                textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
+                textViewConifere.setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.color.transparent, 0, 0, 0);
             }
         }
     }
@@ -222,7 +225,8 @@ public class Conifere1 extends AppCompatActivity {
         } else {
             //Appui du bouton back
             textViewConifere.setText("");
-            textViewConifere.setCompoundDrawablesWithIntrinsicBounds(android.R.color.transparent, 0, 0, 0);
+            textViewConifere.setCompoundDrawablesWithIntrinsicBounds(
+                    android.R.color.transparent, 0, 0, 0);
         }
     }
 

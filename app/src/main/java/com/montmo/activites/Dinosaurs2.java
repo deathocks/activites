@@ -1,3 +1,10 @@
+/**
+ * Auteure : Julien Canuel & Benoit-Lynx Hamel
+ * Fichier : Dinosaurs2.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
+
 package com.montmo.activites;
 
 import android.content.DialogInterface;
@@ -5,7 +12,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -23,9 +29,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-/**
- * Created by Julien on 2016-12-08.
- */
 public class Dinosaurs2 extends AppCompatActivity {
     private WebView vueWeb;
     private WebSettings param;
@@ -64,27 +67,28 @@ public class Dinosaurs2 extends AppCompatActivity {
     }
 
     //Traitement pendant chargement du contenu web
-    WebChromeClient ecouterPendantChargementWeb = new WebChromeClient(){
+    WebChromeClient ecouterPendantChargementWeb = new WebChromeClient() {
         @Override
-        public void onProgressChanged(WebView view, int progress){
+        public void onProgressChanged(WebView view, int progress) {
             Toast.makeText(getApplicationContext(), Integer.toString(progress) + " %",
                     Toast.LENGTH_SHORT).show();
         }
     };
 
     //Traitement en cas d'erreur ou fin du chargement
-    WebViewClient ecouterFinChargement = new WebViewClient(){
+    WebViewClient ecouterFinChargement = new WebViewClient() {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request,
-                                    WebResourceError error){
+                                    WebResourceError error) {
             String messErreur = res.getString(R.string.erreur_chargement_web);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 messErreur = messErreur.concat(error.getDescription().toString());
             }
             Toast.makeText(getApplicationContext(), messErreur, Toast.LENGTH_SHORT).show();
         }
+
         @Override
-        public void onPageFinished(WebView view, String url){
+        public void onPageFinished(WebView view, String url) {
             Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
         }
 
@@ -109,7 +113,8 @@ public class Dinosaurs2 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);

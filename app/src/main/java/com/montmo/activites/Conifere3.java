@@ -32,9 +32,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-/**
- * Created by Lynx-Win7 on 2016-12-06.
- */
 public class Conifere3 extends AppCompatActivity {
     private Resources res;
     private Intent intent;
@@ -157,10 +154,9 @@ public class Conifere3 extends AppCompatActivity {
 
                     //Exemple d'intention explicite.
                     //La nouvelle intention contient le contexte de l'activité
-                    // appelant et le nom de l'activité.
-                    Intent intent;
+                    // appelant et le nom de l'activite
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    if(position == 0){
+                    if (position == 0) {
                         intent = new Intent(Conifere3.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {

@@ -1,3 +1,9 @@
+/**
+ * Auteure : Julien Canuel & Benoit-Lynx Hamel
+ * Fichier : Pret2.java
+ * Date    : 12 décembre 2016
+ * Cours   : 420-254-MO (TP3 Android)
+ */
 package com.montmo.activites;
 
 import android.content.DialogInterface;
@@ -20,9 +26,6 @@ import org.w3c.dom.Text;
 
 import java.util.Locale;
 
-/**
- * Created by Julien on 2016-12-08.
- */
 public class Pret2 extends AppCompatActivity {
     private Button boutonRetour;
     private TextView textMontant;
@@ -67,8 +70,10 @@ public class Pret2 extends AppCompatActivity {
         textMontant.setText(String.format(Locale.getDefault(), "%1$.2f", pret.getMontant()));
         textDuree.setText(Integer.toString(pret.getDuree()));
         textTaux.setText(String.format(Locale.getDefault(), "%1$.2f", pret.getInteret()));
-        textVersement.setText(String.format(Locale.getDefault(), "%1$.2f", pret.calculerVersement()));
-        textInteret.setText(String.format(Locale.getDefault(), "%1$.2f", pret.calculerInteretTotal()));
+        textVersement.setText(String.format(Locale.getDefault(), "%1$.2f",
+                pret.calculerVersement()));
+        textInteret.setText(String.format(Locale.getDefault(), "%1$.2f",
+                pret.calculerInteretTotal()));
         textTotal.setText(String.format(Locale.getDefault(), "%1$.2f", pret.calculerPretTotal()));
 
 
@@ -102,7 +107,8 @@ public class Pret2 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);

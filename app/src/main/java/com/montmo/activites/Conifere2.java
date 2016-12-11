@@ -3,16 +3,20 @@
  * Fichier : Conifere1.java
  * Date    : 12 décembre 2016
  * Cours   : 420-254-MO (TP3 Android)
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité deux de conifère.
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité deux de conifère.
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité deux de conifère.
+ * <p/>
+ * Classe contenant les données et les méthodes pour lactivité deux de conifère.
  */
 
 /**
  * Classe contenant les données et les méthodes pour lactivité deux de conifère.
  */
 package com.montmo.activites;
-
-/**
- * Created by Lynx-Win7 on 2016-12-06.
- */
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -42,9 +46,9 @@ public class Conifere2 extends AppCompatActivity {
     private int choix;
     private Button btnRetour;
     private TextView titreConifere;
-    private String[]tabChaines;
-    private String[]tabNomConifere;
-    private String[]tabImgConifere;
+    private String[] tabChaines;
+    private String[] tabNomConifere;
+    private String[] tabImgConifere;
     private RecyclerView recyclerConifere;
     private ArrayList<Conifere> listeConifere;
     private ConifereAdapterRV conifereAdapterRV;
@@ -57,24 +61,24 @@ public class Conifere2 extends AppCompatActivity {
     private static final int[] TAB_AIGUILLES_CONIFERES = {
             R.array.tab_aiguilles_une,
             R.array.tab_aiguilles_faisceaux,
-            R.array.tab_ecailles };
+            R.array.tab_ecailles};
     private static final int[] TAB_IMAGES_AIGUILLES_CONIFERES = {
             R.array.tab_images_aiguilles_une,
             R.array.tab_images_aiguilles_faisceaux,
-            R.array.tab_images_ecailles };
+            R.array.tab_images_ecailles};
     // Ressources array des différents noms, images et pages web des conifères.
     private static final int[] TAB_CONIFERES = {
             R.array.tab_coniferes_aiguilles_une,
             R.array.tab_coniferes_aiguilles_faisceaux,
-            R.array.tab_coniferes_ecailles };
+            R.array.tab_coniferes_ecailles};
     private static final int[] TAB_IMAGES_CONIFERES = {
             R.array.tab_images_coniferes_aiguilles_une,
             R.array.tab_images_coniferes_aiguilles_faisceaux,
-            R.array.tab_images_coniferes_ecailles };
+            R.array.tab_images_coniferes_ecailles};
     private static final int[] TAB_WEB_CONIFERES = {
             R.array.tab_web_coniferes_aiguilles_une,
             R.array.tab_web_coniferes_aiguilles_faisceaux,
-            R.array.tab_web_coniferes_ecailles };
+            R.array.tab_web_coniferes_ecailles};
 
 
     @Override
@@ -85,13 +89,13 @@ public class Conifere2 extends AppCompatActivity {
         //Recuperer l'objet intent precedent
         intent = getIntent();
         //Recupere la ressource Extra
-        choix = intent.getIntExtra(Conifere1.CLE_CONIFERE,0);
+        choix = intent.getIntExtra(Conifere1.CLE_CONIFERE, 0);
         menuDrawerLayour();
         recupererComposante();
         afficherEcouteListChoix();
     }
 
-    private void afficherEcouteListChoix(){
+    private void afficherEcouteListChoix() {
         //Recuperer le composant RecyclerView
         recyclerConifere = (RecyclerView) findViewById(R.id.id_recycler_conifere);
         //si la liste a une taille on l'indiqu pour les performances
@@ -104,7 +108,7 @@ public class Conifere2 extends AppCompatActivity {
         //Creer adapteur avec information sur l'activite
         //Le Layout personalise de chaque item et la liste d'items
         //L'adaptateur va gerer les items de la Recyclerview.
-        conifereAdapterRV = new ConifereAdapterRV(this,R.layout.item_liste_conifere,listeConifere);
+        conifereAdapterRV = new ConifereAdapterRV(this, R.layout.item_liste_conifere, listeConifere);
         //Apliquer l'adaptateur a la liste
         recyclerConifere.setAdapter(conifereAdapterRV);
 
@@ -112,16 +116,16 @@ public class Conifere2 extends AppCompatActivity {
 
     }
 
-    private void creerListeConifere(){
+    private void creerListeConifere() {
         //Recuperer les tableaux de String
         tabNomConifere = res.getStringArray(TAB_AIGUILLES_CONIFERES[choix]);
         tabImgConifere = res.getStringArray(TAB_IMAGES_AIGUILLES_CONIFERES[choix]);
         //Crer la liste de conifere
         listeConifere = new ArrayList<>();
         //remplir la liste
-        for (int i = 0; i < tabNomConifere.length; i++){
+        for (int i = 0; i < tabNomConifere.length; i++) {
             //Convertir une chaine de caractere en identifiant drawable.
-            int idImage = res.getIdentifier(tabImgConifere[i],"drawable", this.getPackageName());
+            int idImage = res.getIdentifier(tabImgConifere[i], "drawable", this.getPackageName());
             //crer et ajouter l'objet a la liste
             Conifere conifere = new Conifere(tabNomConifere[i], idImage);
             listeConifere.add(conifere);
@@ -136,26 +140,26 @@ public class Conifere2 extends AppCompatActivity {
                     String[] nom = res.getStringArray(TAB_CONIFERES[choix]);
                     String[] img = res.getStringArray(TAB_IMAGES_CONIFERES[choix]);
                     String[] web = res.getStringArray(TAB_WEB_CONIFERES[choix]);
-                    intent.putExtra(Conifere1.CLE_CONIFERE_NOM,nom[position]);
-                    intent.putExtra(Conifere1.CLE_CONIFERE_IMAGE,img[position]);
-                    intent.putExtra(Conifere1.CLE_CONIFERE_WEB,web[position]);
-                    setResult(Activity.RESULT_OK,intent);
+                    intent.putExtra(Conifere1.CLE_CONIFERE_NOM, nom[position]);
+                    intent.putExtra(Conifere1.CLE_CONIFERE_IMAGE, img[position]);
+                    intent.putExtra(Conifere1.CLE_CONIFERE_WEB, web[position]);
+                    setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
             };
 
 
-    private void recupererComposante(){
+    private void recupererComposante() {
         btnRetour = (Button) findViewById(R.id.id_bouton_conifere);
         titreConifere = (TextView) findViewById(R.id.id_titre_conifere2);
-        tabChaines = res.getStringArray ( R.array.tab_choix_aiguilles);
+        tabChaines = res.getStringArray(R.array.tab_choix_aiguilles);
         titreConifere.setText(tabChaines[choix]);
         btnRetour.setOnClickListener(ecouterBtnRetour);
     }
 
-    private View.OnClickListener ecouterBtnRetour = new View.OnClickListener(){
+    private View.OnClickListener ecouterBtnRetour = new View.OnClickListener() {
         @Override
-        public void onClick (View vue){
+        public void onClick(View vue) {
             //setResult(RESULT_OK ,intent);
             finish();
         }
@@ -176,7 +180,8 @@ public class Conifere2 extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -186,7 +191,7 @@ public class Conifere2 extends AppCompatActivity {
 
         //Récuperer une référence à la bare avec Appcompat
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        String[] tabSousTitre = res.getStringArray ( R.array.tab_choix_sous_titres);
+        String[] tabSousTitre = res.getStringArray(R.array.tab_choix_sous_titres);
         actionBar.setSubtitle(tabSousTitre[choix]);
 
         //Ajouter la flèche de remonté et la rendre cliquable
@@ -213,18 +218,16 @@ public class Conifere2 extends AppCompatActivity {
                     //Exemple d'intention explicite.
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
-                    Intent intent;
-                    if(position == 0){
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    if (position == 0) {
                         intent = new Intent(Conifere2.this, Pret1.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else if (position == 1) {
                         intent = new Intent(Conifere2.this, Conifere1.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                    } else if (position == 2){
+                    } else if (position == 2) {
                         intent = new Intent(Conifere2.this, Dinosaurs1.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
                     //Fermer le draerLayout après une selection
@@ -268,7 +271,7 @@ public class Conifere2 extends AppCompatActivity {
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick( DialogInterface dialog, int whichButton ){
+                    public void onClick(DialogInterface dialog, int whichButton) {
                         //Traitement pour le bouton tout à droite.
                         Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
                                 Toast.LENGTH_LONG).show();

@@ -1,6 +1,6 @@
 /**
- * Auteure : Benoit-Lynx Hamel & Julien Canuel
- * Fichier : Conifere1.java
+ * Auteure : Julien Canuel & Benoit-Lynx Hamel
+ * Fichier : MainActivity.java
  * Date    : 12 décembre 2016
  * Cours   : 420-254-MO (TP3 Android)
  */
@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         //Utilisation de la flèche de remontée pour afficher ;e menu.
         // Le constructeur prend en paramètres : l'activité qui accueille le drawer, le drawerLayout
         // et deux chaines utilisées à l'ouvertures et à la fermeture du menu (pour l'accessibilité).
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu, R.string.fermer_menu);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrir_menu,
+                R.string.fermer_menu);
 
         //Basculer entre l'icone hamburger et l'icone de la fleche de remontée.
         drawerToggle.setDrawerIndicatorEnabled(true);
@@ -85,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
                     //La nouvelle intention contient le contexte de l'activité
                     // appelant et le nom de l'activité.
                     Intent intent;
-                    if(position == 0){
+                    if (position == 0) {
                         intent = new Intent(MainActivity.this, Pret1.class);
                         startActivity(intent);
                     } else if (position == 1) {
                         intent = new Intent(MainActivity.this, Conifere1.class);
                         startActivity(intent);
-                    } else if (position == 2){
+                    } else if (position == 2) {
                         intent = new Intent(MainActivity.this, Dinosaurs1.class);
                         startActivity(intent);
                     }
@@ -134,12 +135,12 @@ public class MainActivity extends AppCompatActivity {
 
                 //Écouteur pour le bouton qui se trouvera tout à droite.
                 boiteAlert.setPositiveButton(R.string.txt_alertdialog_ok, new DialogInterface.OnClickListener() {
-                   @Override
-                    public void onClick( DialogInterface dialog, int whichButton ){
-                       //Traitement pour le bouton tout à droite.
-                       Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
-                               Toast.LENGTH_LONG).show();
-                   }
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //Traitement pour le bouton tout à droite.
+                        Toast.makeText(getApplicationContext(), R.string.txt_alertdialog_ok,
+                                Toast.LENGTH_LONG).show();
+                    }
                 });
                 //Créer un AlertDialog
                 AlertDialog boiteAlertDialog = boiteAlert.create();
