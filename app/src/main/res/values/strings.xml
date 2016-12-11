@@ -7,7 +7,7 @@
     <string name="txt_alertdialog_ok">OK</string>
 
     <string name="erreur_chargement_web">Erreur! Chargement contenu web.</string>
-
+    <string name="url_ark">http://ark.gamepedia.com/</string>
 
     <string name="accueil_activites">Application contenant\nplusieurs activités</string>
     <string name="desc_img_accueil">Image de l\'application</string>

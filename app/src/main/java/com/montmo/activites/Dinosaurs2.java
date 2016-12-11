@@ -2,7 +2,10 @@ package com.montmo.activites;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,6 +27,9 @@ import android.widget.Toast;
  * Created by Julien on 2016-12-08.
  */
 public class Dinosaurs2 extends AppCompatActivity {
+    private WebView vueWeb;
+    private WebSettings param;
+    private Resources res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +38,57 @@ public class Dinosaurs2 extends AppCompatActivity {
 
         menuDrawerLayour();
 
+        //Récuperer le composant Webview ppour y afficher un contenu Web.<
+        vueWeb = (WebView) findViewById(R.id.web_page);
+
+        //Accéder aux parametres du composant WebView.
+        param = vueWeb.getSettings();
+
+        //Activer JavaScript.
+        param.setJavaScriptEnabled(true);
+
+        //Afficher les boutons de zoom et activer le pincer.
+        param.setBuiltInZoomControls(true);
+
+        //Gestionnaire pendant le chargement.
+        vueWeb.setWebChromeClient(ecouterPendantChargementWeb);
+        //Gestionnaire en cas d'errr ou fin normal du chargement
+        vueWeb.setWebViewClient(ecouterFinChargement);
+
+        Intent intent = getIntent();
+        Dinosaurs dino = intent.getParcelableExtra(Dinosaurs1.CLE_DINO);
+
+        //Charger l'adresse url.
+        vueWeb.loadUrl("http://ark.gamepedia.com/" + dino.getNom());
 
     }
+
+    //Traitement pendant chargement du contenu web
+    WebChromeClient ecouterPendantChargementWeb = new WebChromeClient(){
+        @Override
+        public void onProgressChanged(WebView view, int progress){
+            Toast.makeText(getApplicationContext(), Integer.toString(progress) + " %",
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //Traitement en cas d'erreur ou fin du chargement
+    WebViewClient ecouterFinChargement = new WebViewClient(){
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request,
+                                    WebResourceError error){
+            String messErreur = res.getString(R.string.erreur_chargement_web);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                messErreur = messErreur.concat(error.getDescription().toString());
+            }
+            Toast.makeText(getApplicationContext(), messErreur, Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onPageFinished(WebView view, String url){
+            Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+        }
+
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

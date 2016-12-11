@@ -28,7 +28,8 @@ public class Dinosaurs1 extends AppCompatActivity {
     private PopupMenu popupMenu;
 
     public static final String NOM_PACKAGE = Pret1.class.getPackage().getName();
-    public static final String CLE_PRET = NOM_PACKAGE + ".DINOSAURS1";
+    public static final String CLE_DINO = NOM_PACKAGE + ".DINOSAURS1";
+    private String itemChoisi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class Dinosaurs1 extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent = new Intent(Dinosaurs1.this, Dinosaurs2.class);
+                            SauvegarderInfosConnexion(intent);
                             startActivity(intent);
 
                             break;
@@ -108,6 +110,14 @@ public class Dinosaurs1 extends AppCompatActivity {
 
             };
 
+    //Méthode qui sauvegarde les infos de la connexion dans l'objet intent
+    private void SauvegarderInfosConnexion(Intent intent) {
+        //Sauvegarder les données extras avec un objet Pret dans l'intent.
+
+        Dinosaurs dino = new Dinosaurs(itemChoisi);
+        intent.putExtra(CLE_DINO, dino);
+    }
+
     private AdapterView.OnItemSelectedListener ecouterSpinner =
             new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -116,7 +126,7 @@ public class Dinosaurs1 extends AppCompatActivity {
                     //Quand changement dans la sélection.
                     // parent.getItemAtPosition( position ) permet de
                     // récupérer l'item qui a été sélectionné.
-                    String itemChoisi =
+                    itemChoisi =
                             parent.getItemAtPosition(position).toString();
                     //Affiche un toast de l'item choisi.
                     Toast.makeText(getApplicationContext(), itemChoisi,
