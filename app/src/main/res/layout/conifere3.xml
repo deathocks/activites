@@ -11,6 +11,7 @@
         android:orientation="vertical">
         <!--Mettre ici votre layout.-->
         <WebView
+            android:id="@+id/id_web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></WebView>
         <!--Fin du layout.-->
