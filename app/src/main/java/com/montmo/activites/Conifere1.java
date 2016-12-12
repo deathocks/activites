@@ -216,17 +216,17 @@ public class Conifere1 extends AppCompatActivity {
         nomConifere = savedInstanceState.getString("nomConifere");
         webConifere = savedInstanceState.getString("webConifere");
 
-        if (!nomConifere.isEmpty()) {
+        if (nomConifere == null || nomConifere.isEmpty()) {
+            //Appui du bouton back
+            textViewConifere.setText("");
+            textViewConifere.setCompoundDrawablesWithIntrinsicBounds(
+                    android.R.color.transparent, 0, 0, 0);
+        } else {
             String message = res.getString(R.string.mess_res_arbre);
             message += "\n" + nomConifere;
             textViewConifere.setText(message);
             textViewConifere.setCompoundDrawablesWithIntrinsicBounds(idImageConifere, 0, 0, 0);
             textViewConifere.setOnClickListener(ecouterTextViewConifere);
-        } else {
-            //Appui du bouton back
-            textViewConifere.setText("");
-            textViewConifere.setCompoundDrawablesWithIntrinsicBounds(
-                    android.R.color.transparent, 0, 0, 0);
         }
     }
 

@@ -64,10 +64,10 @@ public class Pret1 extends AppCompatActivity {
                 public void onClick(View v) {
                     String mont = textMontant.getText().toString();
                     String inte = textInteret.getText().toString();
-                    if (mont.equals("") || Integer.parseInt(mont) == 0) {
+                    if (mont.equals("") || Double.parseDouble(mont) == 0) {
                         Toast.makeText(getApplicationContext(), R.string.warning_infos_pret,
                                 Toast.LENGTH_LONG).show();
-                    } else if (inte.equals("") || Integer.parseInt(inte) == 0) {
+                    } else if (inte.equals("") || Double.parseDouble(inte) == 0) {
                         Toast.makeText(getApplicationContext(), R.string.warning_infos_pret,
                                 Toast.LENGTH_LONG).show();
                     } else {

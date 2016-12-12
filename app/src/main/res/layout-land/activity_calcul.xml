@@ -30,16 +30,16 @@
 
             <TextView
                 android:id="@+id/titre_montant_pret"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/titre_montant" />
+                android:layout_weight="1"
+                android:text="@string/titre_info_montant" />
 
             <TextView
                 android:id="@+id/id_titre_pret"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
 
@@ -50,16 +50,16 @@
 
             <TextView
                 android:id="@+id/titre_taux"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/titre_interet" />
+                android:layout_weight="1"
+                android:text="@string/titre_info_interet"/>
 
             <TextView
                 android:id="@+id/id_titre_taux"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
 
@@ -70,16 +70,16 @@
 
             <TextView
                 android:id="@+id/titre_calcule"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="@string/titre_info_duree" />
 
             <TextView
                 android:id="@+id/id_titre_duree"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
 
@@ -90,16 +90,16 @@
 
             <TextView
                 android:id="@+id/titre_versement"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="@string/titre_versement" />
 
             <TextView
                 android:id="@+id/id_titre_versement"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
 
@@ -110,16 +110,16 @@
 
             <TextView
                 android:id="@+id/titre_int_total"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="@string/titre_interet_total" />
 
             <TextView
                 android:id="@+id/id_titre_int_total"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
 
@@ -130,35 +130,30 @@
 
             <TextView
                 android:id="@+id/titre_total"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="@string/titre_pret_total" />
 
             <TextView
                 android:id="@+id/id_titre_total"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-
             <Button
                 android:id="@+id/txt_btn_retour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/txt_btn_retour" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <ListView

@@ -29,7 +29,7 @@ public class Dinosaurs1 extends AppCompatActivity {
     private ImageButton imgButtonDino;
     private PopupMenu popupMenu;
 
-    public static final String NOM_PACKAGE = Pret1.class.getPackage().getName();
+    public static final String NOM_PACKAGE = Dinosaurs1.class.getPackage().getName();
     public static final String CLE_DINO = NOM_PACKAGE + ".DINOSAURS1";
     private String itemChoisi;
 
@@ -44,10 +44,10 @@ public class Dinosaurs1 extends AppCompatActivity {
 
         dinosaurs = new Dinosaurs();
 
-        String durer = listDino.getItemAtPosition(0).toString();
-        dinosaurs.setNom(durer);
+        //String dino = listDino.getItemAtPosition(0).toString();
+        //dinosaurs.setNom(dino);
 
-        //Définir l'écouteur du spinner des mois dans une variable.
+        //Définir l'écouteur du spinner des dino dans une variable.
         listDino.setOnItemSelectedListener(ecouterSpinner);
 
         menuContextuel();
@@ -116,7 +116,7 @@ public class Dinosaurs1 extends AppCompatActivity {
 
     //Méthode qui sauvegarde les infos de la connexion dans l'objet intent
     private void SauvegarderInfosConnexion(Intent intent) {
-        //Sauvegarder les données extras avec un objet Pret dans l'intent.
+        //Sauvegarder les données extras avec un objet Dino dans l'intent.
 
         Dinosaurs dino = new Dinosaurs(itemChoisi);
         intent.putExtra(CLE_DINO, dino);
