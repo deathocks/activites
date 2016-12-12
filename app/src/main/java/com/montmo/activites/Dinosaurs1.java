@@ -44,8 +44,8 @@ public class Dinosaurs1 extends AppCompatActivity {
 
         dinosaurs = new Dinosaurs();
 
-        //String dino = listDino.getItemAtPosition(0).toString();
-        //dinosaurs.setNom(dino);
+        String dino = listDino.getItemAtPosition(0).toString();
+        dinosaurs.setNom(dino);
 
         //Définir l'écouteur du spinner des dino dans une variable.
         listDino.setOnItemSelectedListener(ecouterSpinner);

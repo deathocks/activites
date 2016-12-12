@@ -41,6 +41,8 @@ public class Dinosaurs2 extends AppCompatActivity {
 
         menuDrawerLayour();
 
+        res = getResources();
+
         //Récuperer le composant Webview ppour y afficher un contenu Web.<
         vueWeb = (WebView) findViewById(R.id.web_page);
 
